@@ -1,2 +1,2 @@
-# taller2024
-Repositorio donde se subirá el material para el taller 2024 del grupo de programación competitiva UNMSM
+# GPCUNMSM
+En este repositorio podrán encontrar recursos para entrenarse como grupo de programación competitiva San Marcos
