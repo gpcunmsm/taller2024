@@ -1,0 +1,189 @@
+%\documentclass[]{beamer}
+\documentclass[handout]{beamer}
+\usepackage{algorithm2e}
+
+\usetheme{Dresden}%%%%% developer's preference - may change based on preferences
+
+%%%%%% UMass official color: https://www.umass.edu/brand/elements/color
+\definecolor{UMassAmherst}{rgb}{0.533 0.11 0.11}
+\usecolortheme[named=UMassAmherst]{structure}
+
+\title{Introducci\'on a los Algoritmos}
+\author{MSc Edson Ticona Zegarra}
+\institute{Campamento de Programaci\'on}
+\date{}
+
+%%%%%% obtained from: https://www.umass.edu/brand/elements/wordmarks-seal-and-spirit-marks
+%%%%%% logos of other departments can also be obtained from the above link. Otherwise, consult your department website.
+
+% \titlegraphic{\includegraphics[width=0.5in]{logo_unmsm.png}}
+% \itlegraphic{\includegraphics[width=0.5in]{logo_uni.png}}
+%\titlegraphic{\includegraphics[width=2in]{UMassAmherst_longform-RGB.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Contenido}
+\tableofcontents
+\end{frame}
+
+\section{Introducci\'on}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Definiciones}
+\begin{itemize}
+  \item Un algoritmo se define como un procedimiento, definido por una serie de instrucciones o pasos, que recibe un conjunto de valores de entrada y retorna un conjunto de valores de salida. 
+\end{itemize}
+\end{frame}
+
+\begin{frame}{?`C\'omo se mide la eficiencia de un algoritmo?}
+\begin{itemize}
+  \item Dado un problema, y dos algoritmos que resuelven dicho problema, intuitivamente podemos decir que el algoritmo que resuelve el problema m\'as r\'apido es el mejor de los dos, o el m\'as \textit{eficiente}.
+\pause
+  \item En general se puede decir que aquel algoritmo que resuelve el problema en la \textit{menor} cantidad de pasos es el m\'as eficiente.
+\pause
+  \item Cuando hablamos del \textit{an\'alisis} de un algoritmo, nos referimos a estimar los recuros que requiere el algoritmo, en t\'erminos de memoria y tiempo.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+\begin{itemize}
+  \item La cantidad de pasos que un algoritmo requiere para terminar su ejecuci\'on depende, por lo general, de la cantidad de datos de entrada.
+\pause
+  \item Ejemplo: dise\~nar un algoritmo que, dado un conjunto de n\'umeros, encuentre el menor de todos ellos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$A$ es un conjunto de $n$ n\'umeros.}
+    \Output{$min$ es el menor elemento de $A$.}
+    \BlankLine
+    $min \leftarrow A[0]$\;
+    \For{$a \in A$}
+    {
+      \If{$a<min$}
+      {
+        $min \leftarrow a$
+      }
+    }
+    \KwRet{$min$}
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+  \item Denotemos como $T(n)$ la cantidad de pasos necesarios para la ejecuci\'on total del algoritmo.
+\pause
+  \item Donde $n$ representa el n\'umero de elementos de entrada.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ejemplo}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$A$ es un conjunto de $n$ n\'umeros.}
+    \Output{$min$ es el menor elemento de $A$.}
+    \BlankLine
+    $min \leftarrow A[0]$ \tcc*[r]{$c_1$}
+    \For(\tcc*[r]{$n$ veces}){$a \in A$}
+    {
+      \If(\tcc*[r]{$c_2$}){$a<min$}
+      {
+        $min \leftarrow a$ \tcc*[r]{$c_3$}
+      }
+    }
+    \KwRet{$min$}
+  \end{algorithm}
+\pause
+Sumando, queda $T(n) = c_1 + n*(c_2 + c_3)$
+\end{frame}
+
+\section{Notaci\'on asint\'otica}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Notaci\'on \textit{Big-O}}
+\begin{itemize}
+  \item Para facilitar el an\'alisis introducimos la notaci\'on asint\'otica
+\pause
+\begin{definition}
+Decimos que $T(n)=O(f(n))$ si $T(n)\leq f(n)$ para todo $n\geq n_0$
+\end{definition}
+\pause
+  \item Es decir, la notaci\'on \textit{Big-O} marca una cota superior.
+\pause
+  \item Entonces, en el ejemplo previo, $T(n)=O(n)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Notaci\'on \textit{Big-Omega}}
+\begin{itemize}
+  \item Analogamente, podemos definir limites inferiores
+\pause
+\begin{definition}
+Decimos que $T(n)=\Omega(f(n))$ si $T(n)\geq f(n)$ para todo $n\geq n_0$
+\end{definition}
+\pause
+  \item Es decir, la notaci\'on \textit{Big-Omega} marca una cota inferior.
+\pause
+  \item Entonces, en el ejemplo previo, $T(n)=\Omega(n)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Notaci\'on \textit{Big-Theta}}
+\begin{itemize}
+  \item Finalmente, se puede usar ambos l\'imites
+\pause
+\begin{definition}
+Decimos que $T(n)=\Theta(f(n))$ si $c_1 f(n) \leq T(n) \leq c_2 f(n)$ para todo $n\geq n_0$
+\end{definition}
+\pause
+  \item Es decir, la notaci\'on \textit{Big-Theta} marca cotas inferiores y superiores.
+\pause
+  \item Entonces, en el ejemplo previo, $T(n)=\Theta(n)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Complejidad Temporal y Espacial}
+\begin{itemize}
+  \item Se define como \textit{complejidad temporal} de un algoritmo al tiempo
+    necesario por un algoritmo para su ejecuci\'on.
+\pause
+  \item Se define como \textit{complejidad espacial} de un algoritmo a la
+    memoria requerida por un algoritmo para su ejecuci\'on.
+\pause
+  \item En este curso, cuando hablemos de \textit{complejidad} nos estamos
+    refiriendo a la complejidad temporal.
+\pause
+  \item Siempre utilizamos notaci\'on asint\'otica para expresar cualquier
+    complejidad.
+\pause
+  \item Usualmente estamos interesados en las cotas superiores, pues marcan el
+    peor de los casos de la ejecuci\'on de los algoritmos, y nos referimos a
+    esta cuando se habla simplemente de complejidad.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmos eficientes}
+  \begin{definition}
+    Se considera un algoritmo como eficiente cuando su complejidad es
+    polin\'omica.
+  \end{definition}
+  \pause
+\begin{itemize}
+  \item Por ejemplo, sea $A$ un algoritmo cuya complejidad es $O(n^{100})$ y $B$ un
+    algoritmo cuya complejidad es $O(2^n)$
+    \pause
+  \item entonces, $A$ se dice que a es eficiente y $B$, de complejidad
+    exponencial, no lo es.
+\end{itemize}
+\end{frame}
+
+
+\end{document}
