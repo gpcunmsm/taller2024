@@ -1,0 +1,338 @@
+\documentclass[]{beamer}
+%\documentclass[notes]{beamer}       % print frame + notes
+%\documentclass[notes=only]{beamer}   % only notes
+%\documentclass{beamer}              % only frames
+%\documentclass[handout]{beamer}
+\usepackage{tikz}
+
+\usepackage{algorithm2e}
+\usepackage{listings}
+
+\usetheme{Dresden}%%%%% developer's preference - may change based on preferences
+
+%%%%%% UMass official color: https://www.umass.edu/brand/elements/color
+\definecolor{UMassAmherst}{rgb}{0.533 0.11 0.11}
+\usecolortheme[named=UMassAmherst]{structure}
+
+\title{Algoritmos}
+\subtitle{Estructuras de Datos}
+\author{MSc Edson Ticona Zegarra}
+\institute{Campamento de Programaci\'on}
+\date{}
+
+%%%%%% obtained from: https://www.umass.edu/brand/elements/wordmarks-seal-and-spirit-marks
+%%%%%% logos of other departments can also be obtained from the above link. Otherwise, consult your department website.
+
+% \titlegraphic{\includegraphics[width=0.5in]{logo_unmsm.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Contenido}
+\tableofcontents
+\end{frame}
+
+\section{Estructuras de Datos}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Estructuras de Datos}
+  \begin{itemize}
+    \item Una estructura de datos es una forma de organizar data para facilitar su posterior uso
+      \pause
+    \item Toda estructura de datos define operaciones como inserci\'on, remoci\'on, b\'usqueda, etc
+      \pause
+    \item Las estructuras de datos m\'as b\'asicas son los arreglos y las matrices (arreglos bidimensionales)
+      \pause
+    \item El objetivo es que sean un soporte para el dise\~no de algoritmos eficientes
+      \pause
+    \item C++ provee los llamados \textit{contenedores} que implementan varias estructuras de datos, hay una buena cantidad de estructuras de datos implementadas, las m\'as especializadas pueden ser construidas tomando estas de base.
+  \end{itemize}
+\end{frame}
+
+\subsection{Estructuras de Datos Elementales}
+\begin{frame}{Contenido}
+\tableofcontents
+\end{frame}
+
+\begin{frame}{Vectores}
+  \begin{itemize}
+    \item Consideramos como \texttt{vectores} a arreglos con memoria din\'amica
+      \pause
+    \item Memoria est\'atica: se conoce el tama\~no del arreglo en tiempo de compilaci\'on (al momento de compilar el programa)
+      \pause
+    \item Memoria din\'amica: \textbf{no} se conoce el tama\~no del arreglo en tiempo de compilaci\'on, sino solo en tiempo de ejecuci\'on (al momento de correr el programa)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vectores}
+  \lstinputlisting[caption=Vectores en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{vector\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Pilas}
+  \begin{itemize}
+    \item Es un contenedor que almacena un conjunto de elementos, siendo una memoria tipo LIFO (Last-In First-Out)
+      \pause
+    \item Solo permite acceso al \'ultimo elemento agregado
+      \pause
+    \item Se puede pensar como una forma de apilar platos, uno encima de otro, de esta manera solo se puede retirar el \'ultimo que fue agregado
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Pilas}
+  \lstinputlisting[caption=Vectores en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{stack\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Colas}
+  \begin{itemize}
+    \item Es un contenedor que almacena un conjunto de elementos, siendo una memoria tipo FIFO (First-In First-Out)
+      \pause
+    \item Solo permite acceso al primer elemento agregado
+      \pause
+    \item Se puede pensar como una cola del banco, donde cada usuario que llega tiene que esperar que los que llegaron antes son atentidos primero salir de la cola
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Colas}
+  \lstinputlisting[caption=Vectores en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{queue\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Colas de prioridad}
+  \begin{itemize}
+    \item Es un contenedor que almacena un conjunto de elementos cada uno con cierta prioridad, siendo una memoria tipo FIFO (First-In First-Out)
+      \pause
+    \item Solo permite acceso al elemento con mayor prioridad
+      \pause
+    \item Se puede pensar como una cola del banco con diferentes tipos de usuarios (clientes regulares, clientes vip, no clientes, ec), donde cada usuario es atendido seg\'un su prioridad
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Colas de prioridad}
+  \lstinputlisting[caption=Vectores en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{priority\_queue\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Sets}
+  \begin{itemize}
+    \item Sets o conjuntos representan un conjunto de elementos sin repetici\'on
+      \pause
+    \item Adicionalmente, los sets preservan el orden de los elementos
+      \pause
+    \item Mantener el orden implica m\'as esfuerzo computacional, por tanto se pierde un poco de eficiencia
+      \pause
+    \item Si no se desea mantener el orden y solo se requiere unicidad de los elementos se puede usar \texttt{unordered\_set}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Sets}
+  \lstinputlisting[caption=Vectores en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{set\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Listas enlazadas}
+  \begin{itemize}
+    \item Las listas proveen acceso solo al primer elemento y al \'ultimo, se debe iterar para acceder al resto
+      \pause
+    \item Es decir, a diferencia de los vectores, no provee acceso aleatorio (Random Access)
+      \pause
+    \item Para acceder a los elementos hay que iterar la lista
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Listas enlazadas}
+  \lstinputlisting[caption=Vectores en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{list\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Listas enlazadas vs vectores}
+  \begin{itemize}
+    \item Los vectores son almacenados en espacios de memoria contigua, las listas no
+      \pause
+    \item Por ello, la inserci\'on en una posici\'on cualquiera es lenta para un vector, pero r\'apida para una lista
+      \pause
+    \item An\'alogamente, la remoci\'on en una posici\'on cualquiera es lenta para un vector, pero r\'apida para una lista
+      \pause
+    \item El uso de uno u otro depende de lo que se necesite
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hash tables}
+  \begin{itemize}
+    \item Tambi\'en llamados diccionarios o maps, son contenedores que asocian dos valores
+      \pause
+    \item Se pueden pensar como una generalizaci\'on de los arreglos
+      \pause
+    \item En un arreglo, cada elemento tiene un \'indice que es un n\'umero entero
+      \pause
+    \item En un map, cada elemento tiene un \'indice que puede ser cualquier tipo de dato
+      \pause
+    \item Se puede pensar como una agenda telef\'onica, en la que se indexa (o busca) por nombres y apellidos y no por \'indices enteros
+      \pause
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Hash tables}
+  \lstinputlisting[caption=Vectores en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{map\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Hash tables}
+  \begin{itemize}
+    \item De manera an\'aloga a los sets, los maps preservan el orden de los elementos en base al \'indice
+      \pause
+    \item Mantener el orden implica m\'as esfuerzo computacional, por tanto se pierde un poco de eficiencia
+      \pause
+    \item Si no se desea mantener el orden se puede usar \texttt{unordered\_map}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Documentaci\'on adicional}
+  \begin{itemize}
+    \item Documentaci\'on oficial: https://en.cppreference.com/w/cpp/container
+    \item Geek for geeks: https://www.geeksforgeeks.org/containers-cpp-stl/
+    \item Curso de geek for geeks: https://www.geeksforgeeks.org/courses/cpp-programming-basic-to-advanced
+  \end{itemize}
+\end{frame}
+
+\subsection{Estructuras de Datos Avanzadas}
+\begin{frame}{Contenido}
+\tableofcontents
+\end{frame}
+
+\begin{frame}{Estructuras de Datos Avanzadas}
+  \begin{itemize}
+    \item Para efectos de este curso, entendemos como estructuras de datos avanzadas a aquellas que no son implemendatas por la librer\'ia estandar de C++ (STL), sino que deben ser implementadas
+      \pause
+    \item Al implementar una estructura de datos debemos pensar en sus diversas operaciones: inicializaci\'on, inserci\'on, remoci\'on, b\'usqueda, etc. Las operaciones que soporte cada estructura de datos depende de su dise\~no
+      \pause
+    \item Para tener una estructura de datos eficiente, sus operaciones deben ser eficientes
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Estructuras de Datos Avanzadas}
+  \begin{itemize}
+    \item Una situaci\'on usual es tener alguna operaci\'on computacionalmente costosa (lenta), pero el resto de operaciones eficientes. 
+      \pause
+    \item Si la operaci\'on costosa es utilizada pocas veces y las operaciones eficientes muchas veces, en general se tendr\'a una buena base para un algoritmo
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\'Arboles}
+  \begin{itemize}
+    \item Es una estructura de datos jer\'arquica, conformado por varios nodos
+      \pause
+    \item Cada nodo tiene un nodo \textit{padre} y guarda un valor
+      \pause
+    \item El nodo \textit{ra\'iz} es aquel que no tiene ning\'un padre. 
+      \pause
+    \item Usualmente se tiene solo una referencia al nodo padre y se puede explorar el \'arbol a partir de este
+      \pause
+    \item Existen varias formas de implementar un \'arbol, cada una con sus ventajas y desventajas, tanto en t\'erminos de memoria como de tiempo
+      \pause
+    \item Se conoce como \textit{altura} del \'arbol al n\'umero de niveles que tiene el \'arbol
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\'Arboles}
+  \centering{
+    \begin{tikzpicture}[
+        level distance=1.5cm,
+        sibling distance=1.5cm,
+        every node/.style={circle, draw}
+      ]
+      % Nodes
+      \node {1}
+      child {node {2}
+      child {node {1}}
+      child {node {6}}
+      }
+      child {node[right=of current axis, xshift=2cm, circle, draw] {7}
+      child {node {5}}
+      child {node {8}}
+      child {node {3}}
+      };
+    \end{tikzpicture}
+    }
+\end{frame}
+
+\begin{frame}{\'Arboles}
+  \lstinputlisting[caption=Vectores en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{tree\_sample.cpp}
+\end{frame}
+
+\begin{frame}{\'Arboles}
+  \lstinputlisting[caption=Vectores en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{tree\_sample2.cpp}
+\end{frame}
+
+\begin{frame}{\'Arboles binarios}
+  \begin{itemize}
+    \item Son \'arboles en los que cada nodo tiene a lo mucho dos hijos
+      \pause
+    \item Se dice que un \'arbol est\'a completo cuando todos los niveles est\'an llenos, excepto el \'ultimo
+      \pause
+    \item Cuando el \'arbol est\'a completo se cumple la siguiente relaci\'on entre la altura y el n\'umero de nodos del \'arbol $h = \left\lceil \log n \right\rceil $
+      \pause
+    \item \'Arboles completos pueden ser f\'acilmente representados con un arreglo; si el \'arbol no est\'a completo es mejor usar un map
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\'Arboles binarios}
+  \centering{
+    \begin{tikzpicture}[
+        level distance=1cm,
+        sibling distance=2.5cm,
+        every node/.style={circle, draw}
+      ]
+      % Nodes
+      \node {1}
+      child {node {2}
+      child {node {1}}
+      child {node {6}}
+      }
+      child {node[right=of current axis, xshift=2cm, circle, draw] {7}
+      child {node {5}}
+      child {node {8}}
+      };
+    \end{tikzpicture}
+    }
+\end{frame}
+
+\begin{frame}{\'Arboles binarios}
+  \lstinputlisting[caption=Arbol binario, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{binary\_tree\_sample.cpp}
+\end{frame}
+
+\begin{frame}{\'Arboles binarios}
+  \lstinputlisting[caption=Arbol binario, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{binary\_tree\_sample2.cpp}
+\end{frame}
+
+\begin{frame}{\'Arboles de b\'usqueda binarios}
+  \begin{itemize}
+    \item Son \'arboles binarios tal que para cualquier nodo, el hijo de la izquierda es menor que el nodo padre, y el hijo de la derecha es mayor que el nodo padre
+      \pause
+    \item Se puede generalizar la noci\'on al integrar una relaci\'on de orden entre el nodo padre y los nodos hijos
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\'Arboles binarios}
+  \centering{
+    \begin{tikzpicture}[
+        level distance=1cm,
+        sibling distance=2.5cm,
+        every node/.style={circle, draw}
+      ]
+      % Nodes
+      \node {5}
+      child {node {2}
+      child {node {1}}
+      child {node {4}}
+      }
+      child {node[right=of current axis, xshift=2cm, circle, draw] {7}
+      child {node {6}}
+      child {node {8}}
+      };
+    \end{tikzpicture}
+    }
+\end{frame}
+
+\begin{frame}{\'Arboles binarios}
+  \lstinputlisting[caption=Arbol binario, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{bst\_sample.cpp}
+\end{frame}
+
+\end{document}
