@@ -15,14 +15,20 @@ bst *NewNode(int n) {
   return t;
 }
 
-// retorna -1 si fue agregado a la izquierda, +1 si fue agregado a la derecha
-int AppendNode(bst *root, bst *child) {
+// agrega recursivamente el nodo child al nodo root
+void AppendNode(bst *root, bst *child) {
   if( child->data < root->data ){
-    root->left = child;
-    return -1;
+    if ( root->left != NULL ){
+      return AppendNode(root->left, child);
+    } else {
+      root->left = child;
+    }
   } else {
-    root->right = child;
-    return 1;
+    if ( root->right != NULL ){
+      return AppendNode(root->right, child);
+    } else {
+      root->right = child;
+    }
   }
 }
 
@@ -36,17 +42,15 @@ void PrintSortedBST(bst *root) {
 
 int main() {
   bst *root = NewNode(5);
-  bst *child1 = NewNode(2);
-  bst *child2 = NewNode(7);
 
-  AppendNode(root, child1);
-  AppendNode(root, child2);
+  AppendNode(root, NewNode(2));
+  AppendNode(root, NewNode(7));
 
-  AppendNode(child1, NewNode(1));
-  AppendNode(child1, NewNode(4));
+  AppendNode(root, NewNode(1));
+  AppendNode(root, NewNode(4));
 
-  AppendNode(child2, NewNode(6));
-  AppendNode(child2, NewNode(8));
+  AppendNode(root, NewNode(8));
+  AppendNode(root, NewNode(6));
 
   PrintSortedBST(root);
 }
