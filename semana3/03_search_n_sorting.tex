@@ -1,0 +1,335 @@
+\documentclass[]{beamer}
+%\documentclass[notes]{beamer}       % print frame + notes
+%\documentclass[notes=only]{beamer}   % only notes
+%\documentclass{beamer}              % only frames
+%\documentclass[handout]{beamer}
+
+\usepackage{algorithm2e}
+\usepackage{listings}
+
+\usetheme{Dresden}%%%%% developer's preference - may change based on preferences
+
+%%%%%% UMass official color: https://www.umass.edu/brand/elements/color
+\definecolor{UMassAmherst}{rgb}{0.533 0.11 0.11}
+\usecolortheme[named=UMassAmherst]{structure}
+
+\title{Algoritmos}
+\subtitle{B\'usqueda y ordenaci\'on}
+\author{MSc Edson Ticona Zegarra}
+\institute{Campamento de Programaci\'on}
+\date{}
+
+%%%%%% obtained from: https://www.umass.edu/brand/elements/wordmarks-seal-and-spirit-marks
+%%%%%% logos of other departments can also be obtained from the above link. Otherwise, consult your department website.
+
+\titlegraphic{\includegraphics[width=0.5in]{logo_unmsm.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Contenido}
+\tableofcontents
+\end{frame}
+
+\section{B\'usqueda}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{B\'usqueda}
+  \begin{definition}
+    Dado un conjunto de n\'umeros $A$, y un n\'umero $x$, deseamos saber si $x$
+    se encuentra en $A$.
+  \end{definition}
+\end{frame}
+
+\begin{frame}{Algoritmo de b\'usqueda}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$A$ es un conjunto de $n$ n\'umeros y $x$ es el n\'umero buscado.}
+    \Output{$0$ si $x \in A$, $1$ caso contrario}
+    \BlankLine
+    \For{$a \in A$}
+    {
+      \If{$x == a$}
+      {
+        \KwRet{$0$}
+      }
+    }
+    \KwRet{$1$}
+  \end{algorithm}
+  \pause
+  \begin{itemize}
+    \item Complejidad: \pause $T(n)=O(n)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{B\'usqueda binaria}
+  \begin{itemize}
+    \item Si los elementos se encuentran ordenados se puede obtener un algoritmo m\'as eficiente
+      \pause
+    \item En general, \textbf{cuando la data tiene cierta estructura, esta puede ser aprovechada para obtener algoritmos m\'as eficientes}
+      \pause
+    \item Se toma de referencia el elemento central, as\'i se sabe si se debe continuar buscando en la parte superior o en la parte inferior
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{B\'usqueda binaria}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$A$ es un conjunto de $n$ n\'umeros y $x$ es el n\'umero buscado.}
+    \Output{$0$ si $x \in A$, $1$ caso contrario}
+    \BlankLine
+    $m \leftarrow (l+r)/2$
+    \BlankLine
+    \If{$x < A[m]$}
+    {
+      \textsc{BinarySearch(A, x, l, m-1)}
+    }
+    \If{$x > A[m]$}
+    {
+      \textsc{BinarySearch(A, x, m+1, r)}
+    }
+    \If{$x == A[m]$}
+    {
+      \KwRet{$m$}
+    }
+    \KwRet{$-1$}
+  \end{algorithm}
+  \pause
+  \begin{itemize}
+    \item Complejidad: \pause $T(n)=O(n \log n)$
+  \end{itemize}
+\end{frame}
+\note[itemize]{
+\item como mejorar la complejidad espacial
+\item memoria estatica vs dinamica
+\item consideraciones generales en el uso de memoria
+}
+
+\section{Ordenaci\'on}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Ordenaci\'on}
+  \begin{itemize}
+    \item Definimos el problema de ordenaci\'on de la siguiente manera
+  \end{itemize}
+  \begin{definition}
+    Dado un conjunto de n\'umeros $A$ en un orden arbitrario, deseamos retornar
+    el conjunto en un orden particular, por ejemplo, de menor a mayor.
+  \end{definition}
+
+  \begin{definition}
+    Se dice que una ordenaci\'on es estable si, para elementos iguales, respeta el orden inicial
+  \end{definition}
+\end{frame}
+
+\begin{frame}{Ordenaci\'on}
+  \begin{itemize}
+    \item Primer algoritmo: algoritmo de inserci\'on
+      \pause
+    \item La idea de este algoritmo es recorrer el arreglo, de izquierda a
+      derecha, colocando cada elemento en su posici\'on adecuada en el lado
+      izquierdo.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmo de inserci\'on}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$A$ es un conjunto de $n$ n\'umeros.}
+    \Output{$A$ ordenado}
+    \BlankLine
+    \For{$i=2, ..., n$}
+    {
+      $j \leftarrow i$ \;
+      \While{$A[j]<A[j-1] \; \& \; j>1$}
+      {
+        \tcc{Solo intercambiar $A[j]$ con $A[j-1]$}
+        $tmp \leftarrow A[j-1]$ \;
+        $A[j-1] \leftarrow A[j]$ \;
+        $A[j] \leftarrow tmp$ \;
+        $j--$
+      }
+    }
+    \KwRet{$1$}
+  \end{algorithm}
+  \pause
+  \begin{itemize}
+    \item Complejidad: \pause $T(n)=O(n^2)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmo de inserci\'on}
+  \begin{itemize}
+    \item En el mejor de los casos el algoritmo es lineal
+    \item Es decir $T(n)= \Omega(n)$ 
+    \item En el peor de los casos el algoritmo es cuadr\'atico
+    \item Es decir $T(n)= O(n^2)$
+  \end{itemize}
+\end{frame}
+
+\note[itemize]{
+\item como mejorar la complejidad
+\item prueba de invariante: inicializacion, mantenimiento y finalizacion
+}
+
+\begin{frame}{Ordenaci\'on}
+  \begin{itemize}
+    \item Segundo algoritmo: \textit{mergesort} (algoritmo de mezcla)
+      \pause
+    \item La idea de este algoritmo es dividir el arreglo en dos partes iguales,
+      ordenar los dos sub-arreglos recursivamente y luego mezclarlos de tal
+      manera que que los elementos queden ordenados.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Mergesort}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$A$ es un conjunto de $n$ n\'umeros.}
+    \Output{$A$ ordenado}
+    \BlankLine
+    \tcc{Toda recursion tiene un caso base}
+    \If{$ i == j $}
+    {
+      \KwRet{}
+    }
+    $mitad \leftarrow (i-j)/2$ \;
+    $B \leftarrow = MergeSort(A, i, mitad)$ \;
+    $C \leftarrow = MergeSort(A, mitad+1, j)$ \;
+    \tcc{Cada subarray esta ordenado, ahora solo unirlos ordenadamente}
+    \KwRet{$Merge(B,C)$}
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}{Mergesort}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{Arreglos $B$ y $C$}
+    \Output{$A = B \cup C$ ordenado}
+    \BlankLine
+    $it, i, j \leftarrow 1$  \tcc*{Iteradores}
+    \While{$it < size(B)+size(C)$}{
+      \If{$B[i] < C[j]$}{
+        $A[it] \leftarrow B[i]$ \;
+        $i++$
+      }
+      \If{$C[j] <= B[i]$}{
+        $A[it] \leftarrow C[j]$ \;
+        $j++$
+      }
+      $it++$
+    }
+    \KwRet{$A$}
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}{Mergesort}
+  \begin{itemize}
+    \item Complejidad: \pause $T(n)=2T(n/2) + O(n)$
+  \end{itemize}
+\end{frame}
+
+
+\note[itemize]{
+\item complejidad, como resolver la recurrencia
+\item prueba de invariante: inicializacion, mantenimiento y finalizacion
+\item como mejorar la complejidad
+}
+
+\begin{frame}{Ordenaci\'on}
+  \begin{itemize}
+    \item Segundo algoritmo: \textit{quicksort} (Algoritmo r\'apido)
+      \pause
+    \item En este algoritmo tomamos un elemento, al que se denomina
+      \textit{pivot}, por conveniencia puede ser el
+      primero, y lo colocamos en su lugar adecuado respecto al resto. Esta
+      operaci\'on va a crear dos sub-arreglos, uno a la izquierda y otro a la
+      derecha de este elemento. Repetimos el mismo procedimiento con ambos
+      arreglos.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Quicksort}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$A$ es un conjunto de $n$ n\'umeros.}
+    \Output{$A$ ordenado}
+    \BlankLine
+    \If{$size(A) == 1$}
+    {
+      \KwRet{$A$}
+    }
+    $p \leftarrow A[0]$ \;
+    $left, right \leftarrow Pivot(A\setminus \{p\}, p)$ \;
+    $S \leftarrow QuickSort(left) \cup \{p\} \cup QuickSort(right)$ \;
+    \KwRet{$S$}
+  \end{algorithm}
+  \pause
+  \begin{itemize}
+    \item Complejidad: \pause $T(n)=T(n/a) + T(n/b) + O(n)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Quicksort}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$A$ un conjunto y $p$ el pivot}
+    \Output{$L, R$ elementos menores y mayores que $p$}
+    \BlankLine
+    $L,R \leftarrow []$ \tcc*{Inicializacion}
+    \For{$a \in A$}
+    {
+      \If{$a < p$}
+      {
+        $L.push(a)$
+      }
+      \If{$a >= p$}
+      {
+        $R.push(a)$
+      }
+    }
+    \KwRet{$L, R$}
+  \end{algorithm}
+\end{frame}
+
+\note[itemize]{
+\item complejidad, como resolver la recurrencia
+\item prueba de invariante: inicializacion, mantenimiento y finalizacion
+\item como mejorar la complejidad
+}
+
+\begin{frame}{Randomized Quicksort}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$A$ es un conjunto de $n$ n\'umeros.}
+    \Output{$A$ ordenado}
+    \BlankLine
+    \If{$size(A) == 1$}
+    {
+      \KwRet{$A$}
+    }
+    $p \leftarrow random(A)$ \;
+    $left, right \leftarrow Pivot(A\setminus \{p\}, p)$ \;
+    $S \leftarrow QuickSort(left) \cup \{p\} \cup QuickSort(right)$ \;
+    \KwRet{$S$}
+  \end{algorithm}
+  \pause
+  \begin{itemize}
+    \item Complejidad: \pause $T(n)=2T(n/2) + O(n)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementaci\'on}
+  \lstinputlisting[caption=Ordenacion STL, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{sorting\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Implementaci\'on estable}
+  \lstinputlisting[caption=Ordenacion STL, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{sorting\_sample2.cpp}
+\end{frame}
+
+\end{document}
