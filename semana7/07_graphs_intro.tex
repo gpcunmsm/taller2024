@@ -211,16 +211,17 @@
     \While{$ !toVisit.empty() $}
     {
       $u = toVisit.front() $
-      \tcc{$Adj(u)$ representa los v\'ertices adyacentes de $u$}
+      \tcc{$Adj(u)$ adyacentes a $u$}
       \For{$v \in Adj(u)$}
       {
-        \tcc{podemos colorear los v\'ertices}
+        \tcc{colorear los v\'ertices}
         \If{$ !visited(v) $}
         {
-          \KwRet{$ toVisit.push(v)  $}
+          {$ toVisit.push(v)  $} \;
+          { dist[v] = dist [u] + 1 } \;
+          { mark $u$ as visited } \;
         }
       }
-      { mark $u$ as visited } \;
       { $toVisit.pop()$ }
     }
   \end{algorithm}
