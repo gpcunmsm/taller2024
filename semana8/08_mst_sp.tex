@@ -1,0 +1,283 @@
+%\documentclass[]{beamer}
+%\documentclass[notes]{beamer}       % print frame + notes
+%\documentclass[notes=only]{beamer}   % only notes
+%\documentclass{beamer}              % only frames
+\documentclass[handout]{beamer}
+\usepackage{tikz}
+
+\usepackage{algorithm2e}
+
+\usetheme{Dresden}%%%%% developer's preference - may change based on preferences
+
+%%%%%% UMass official color: https://www.umass.edu/brand/elements/color
+\definecolor{UMassAmherst}{rgb}{0.533 0.11 0.11}
+\usecolortheme[named=UMassAmherst]{structure}
+
+\title{Grafos: caminos m\'inimos y \'arbol expansi\'on m\'inimo}
+
+\author{MSc Edson Ticona Zegarra}
+\institute{Campamento de Programaci\'on}
+\date{}
+
+%%%%%% obtained from: https://www.umass.edu/brand/elements/wordmarks-seal-and-spirit-marks
+%%%%%% logos of other departments can also be obtained from the above link. Otherwise, consult your department website.
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Contenido}
+\tableofcontents
+\end{frame}
+
+\section{Minimum Spanning Tree}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Minimum Spanning Tree (MST)}
+ \begin{itemize}
+   \item Dado un grafo no direccionado con pesos, se conoce como \textit{\'arbol de expansi\'on m\'inimo} a aquel grafo cuyas aristas sean un subconjunto del grafo original tal que todos los v\'ertices est\'en conectados y la suma de sus pesos sea m\'inimo
+      \pause
+    \item Dicho grafo es un \'arbol.
+      \pause
+    \item Para solucionar este problema se tiene dos algoritmos ampliamente conocidos: el algoritmo de Kruskal y el algoritmo de Prim
+  \end{itemize}
+\end{frame}
+
+\subsection{Conjuntos Disjuntos}
+\begin{frame}{Conjuntos Disjuntos}
+  \begin{itemize}
+    \item Para el algoritmo de Kruskal se necesita una estructura de datos especial conocida como \textit{conjuntos disjuntos}
+      \pause
+    \item Un conjunto disjunto representa a varios conjuntos que no tienen elementos en com\'un y se define un par de operaciones b\'asicas, \textsc{Find} y \textsc{Union}
+      \pause
+    \item Se necesita que ambas operaciones sean eficientes
+      \pause
+    \item Cuando se busca un elemento se debe retornar el conjunto en el que se encuentra
+      \pause
+    \item Cuando dos conjuntos se unen, todos los elementos pasan a estar en el mismo conjunto
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Conjuntos Disjuntos}
+  \begin{itemize}
+    \item La manera m\'as sencilla de hacer esto es con un arreglo. Se tiene un arreglo $C$ del mismo tama\~no que la cantidad de elementos
+      \pause
+    \item El valor $C[i]$ indica a que conjunto pertenece el $i$-\'esimo elemento
+      \pause
+    \item Esta implementaci\'on es directa y sin mayores complicaciones
+      \pause
+    \item Entonces \textsc{Find}$(i)$ ser\'a unicamente retornar el valor de $C[i]$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Union}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$a$ y $b$ son los elementos que deben quedar en un mismo conjunto}
+    \BlankLine
+    $k \leftarrow Find(b)$ \;
+    \For{$i \in C$}
+    {
+      \If{$Find(i) == k$}
+      {
+        $C[i] \leftarrow a$
+      }
+    }
+    \BlankLine
+  \end{algorithm}
+  \pause
+  \begin{itemize}
+    \item \textsc{Find} tiene una complejidad $O(1)$ y \textsc{Union} tiene una complejidad $O(n)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\textit{Balancing (union by rank)}}
+  \begin{itemize}
+    \item Si consideramos almacenar \'arboles por cada elemento, entonces podemos mejorar la complejidad de la operaci\'on \textsc{Union}
+      \pause
+    \item Los \'arboles son estructuras eficientes cuando se encuentra balanceados, por ello es conveniente almacenar en el nodo ra\'iz la altura del \'arbol
+      \pause
+    \item As\'i, al unir dos \'arboles, escogemos que el \'arbol de menor altura para que sea un nodo hijo del otro \'arbol
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{\textit{Path compression}}
+  \begin{itemize}
+    \item En \textsc{Find}, podemos recorrer dos veces el \'arbol para que los elementos apunten directamente al nodo ra\'iz, reduciendo el tama\~no del \'arbol
+      \pause
+    \item Si bien es cierto la operaci\'on de \textsc{Find} se complica un poco m\'as y su complejidad deja de ser constante, la complejidad de \textsc{Union} es reducida ampliamente compensando lo perdido en \textsc{Find}
+  \end{itemize}
+\end{frame}
+
+\subsection{Kruskal}
+\begin{frame}{Kruskal}
+  \begin{itemize}
+    \item Cada v\'ertice es un conjunto disjunto
+      \pause
+    \item Se va agregando aristas de menor peso, uniendo diversos componentes
+      \pause
+    \item Se termina cuando se tiene un \'unico conjunto 
+  \end{itemize}
+\end{frame}
+
+\subsection{Prim}
+\begin{frame}{Prim}
+  \begin{itemize}
+    \item Se inicia de un v\'ertice arbitrario
+      \pause
+    \item Se va agregando v\'ertices de menor peso que est\'en conectados al componente actual
+      \pause
+    \item Se termina cuando todos los v\'ertices estan conectados
+  \end{itemize}
+\end{frame}
+
+\subsection{Comparaci\'on}
+\begin{frame}{Comparaci\'on}
+  \begin{itemize}
+    \item La complejidad de ambos algoritmos dependen de la estructura de datos que se utilice.
+      \pause
+    \item La complejidad de Prim va desde $O(V^2)$ hasta un $O(E\log V)$ si se utiliza \textit{Fibonacci heaps}
+      \pause
+    \item La complejidad de Kruskal es $O(E \log V)$ si se utiliza una estructura de conjuntos disjuntos eficiente
+      \pause
+    \item El algoritmo de Kruskal es m\'as r\'apido para grafos esparsos
+      \pause
+    \item El algoritmo de Prim es m\'as r\'apido para grafos densos
+  \end{itemize}
+\end{frame}
+
+\section{Shortest Paths}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Single Source Shortest Paths (SSSP)}
+ \begin{itemize}
+   \item Dado un grafo, se busca el camino m\'inimo m\'inimo entre un par de v\'ertices $s, t$.
+      \pause
+    \item Si consideramos un grafo sin pesos, se busca el camino con menor cantidad de aristas y tal problema se puede solucionar con el BFS
+      \pause
+    \item Si consideramos un grafo con pesos, se busca el camino tal que la suma de los pesos de las aristas sea m\'inimo, se puede solucionar con el algoritmo de Dijkstra
+      \pause
+    \item Si consideramos un grafos con pesos negativos, tal que no existan ciclos negativos, se puede solucionar con el algoritmo de Bellman-Ford
+      \pause
+    \item En todos los casos anteriores, los algoritmos nos retornan las distancias m\'inimas entre un v\'ertice $s$ y el resto de v\'ertices en el grafo
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Relajaci\'on}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$u$, $v$ y $w(u,v)$ son un par de v\'ertices y el peso de la arista que los conecta}
+    \BlankLine
+    \If{$dist[v] > dist[u] + w(e,v) $}
+    {
+      $dist[v] \leftarrow dist[u] + w(e,v)$
+
+      $parent[v] \leftarrow u $
+
+      \KwRet{true}
+    }
+    \KwRet{false}
+    \BlankLine
+  \end{algorithm}
+\end{frame}
+
+\subsection{Algoritmo de Dijkstra}
+\begin{frame}{Algoritmo de Dijkstra}
+  \begin{itemize}
+    \item Se considera un vector de distancias, tal que cada v\'ertice est\'a a una distancia infinita del v\'ertice inicial $s$.
+      \pause
+    \item Se tiene que procesar cada v\'ertice del grafo, almacenandolos en una cola de prioridades
+      \pause
+    \item La prioridad est\'a dada por la distancia m\'inima calculada hasta el momento
+      \pause
+    \item Para cada v\'ertice $u$ de la cola, relajar cada uno de sus v\'ertices $v$ adyacentes. Si el v\'ertice fue relajado, quiere decir que la distancia fue modificada, por tanto se debe actualizar la cola de prioridades
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmo de Dijkstra}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$G$ grafo}
+    \BlankLine
+    $Q \leftarrow V$ \tcp*{$Q$ cola de prioridades en base a la distancia m\'inima}
+    \While{ $ !Q.empty() $ }
+    {
+      $u \leftarrow Q.top()$
+
+      \For{ $v \leftarrow Adj(u) $ }
+      {
+        $ r \leftarrow Relax(u, v, w) $
+
+        \If{ $ r $ }
+        {
+          $Update(Q)$
+        }
+      }
+    }
+
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}{Algoritmo de Dijkstra}
+  \begin{itemize}
+    \item Complejidad: $O(|E| + |V| \log |V|)$
+  \end{itemize}
+\end{frame}
+
+\subsection{Algoritmo de Bellman-Ford}
+\begin{frame}{Algoritmo de Bellman-Ford}
+  \begin{itemize}
+    \item Es m\'as gen\'erico que el algoritmo de Dijkstra, pero es m\'as lento
+      \pause
+    \item Utiliza tambi\'en la noci\'on de ``relajar'' aristas
+      \pause
+    \item Notar que un grafo con un ciclo negativo no tiene soluci\'on
+      \pause
+    \item El algoritmo relaja todas las aristas, en un orden arbitrario, $|V|-1$ veces
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmo de Bellman-Ford}
+  \begin{algorithm}[H]
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{$G=(V,E)$ grafo}
+    \BlankLine
+    \For{ $ u \in V $ }
+    {
+      \For{ $e=(u,v) \in E $ }
+      {
+        $ Relax(u, v, w) $
+
+      }
+    }
+    \For{ $e=(u,v) \in E $ }
+    {
+      \If{ $dist[v] > dist[u] + w(u,v) $ }
+      {
+        \KwRet{false}
+      }
+    }
+    \KwRet{true}
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}{All Pairs Shortest Paths (APSP)}
+ \begin{itemize}
+    \item El algoritmo Floyd-Warshall resuelve calcula la distancia m\'inima entre cualquier par de v\'ertices de un grafo
+      \pause
+    \item Este algoritmo provee una soluci\'on m\'as eficiente que llamar $|V|$ veces al algoritmo de Dijkstra
+  \end{itemize}
+\end{frame}
+
+\subsection{Algoritmo de Floyd-Warshall}
+\begin{frame}{Algoritmo de Floyd-Warshall}
+  \begin{itemize}
+    \item 
+  \end{itemize}
+\end{frame}
+
+\end{document}
