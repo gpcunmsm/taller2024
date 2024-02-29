@@ -153,6 +153,7 @@
 \tableofcontents[currentsection]
 \end{frame}
 
+\subsection{SSSP}
 \begin{frame}{Single Source Shortest Paths (SSSP)}
  \begin{itemize}
    \item Dado un grafo, se busca el camino m\'inimo m\'inimo entre un par de v\'ertices $s, t$.
@@ -170,11 +171,11 @@
 \begin{frame}{Relajaci\'on}
   \begin{algorithm}[H]
     \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
-    \Input{$u$, $v$ y $w(u,v)$ son un par de v\'ertices y el peso de la arista que los conecta}
+    \Input{$u$, $v$ y $w_{u,v}$ son un par de v\'ertices y el peso de la arista que los conecta}
     \BlankLine
-    \If{$dist[v] > dist[u] + w(e,v) $}
+    \If{$dist[v] > dist[u] + w_{u,v} $}
     {
-      $dist[v] \leftarrow dist[u] + w(e,v)$
+      $dist[v] \leftarrow dist[u] + w_{u,v}$
 
       $parent[v] \leftarrow u $
 
@@ -185,7 +186,7 @@
   \end{algorithm}
 \end{frame}
 
-\subsection{Algoritmo de Dijkstra}
+\subsubsection{Algoritmo de Dijkstra}
 \begin{frame}{Algoritmo de Dijkstra}
   \begin{itemize}
     \item Se considera un vector de distancias, tal que cada v\'ertice est\'a a una distancia infinita del v\'ertice inicial $s$.
@@ -228,7 +229,7 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Algoritmo de Bellman-Ford}
+\subsubsection{Algoritmo de Bellman-Ford}
 \begin{frame}{Algoritmo de Bellman-Ford}
   \begin{itemize}
     \item Es m\'as gen\'erico que el algoritmo de Dijkstra, pero es m\'as lento
@@ -265,6 +266,13 @@
   \end{algorithm}
 \end{frame}
 
+\begin{frame}{Algoritmo de Bellman-Ford}
+  \begin{itemize}
+    \item Complejidad: $O(|VE|)$
+  \end{itemize}
+\end{frame}
+
+\subsection{APSP}
 \begin{frame}{All Pairs Shortest Paths (APSP)}
  \begin{itemize}
     \item El algoritmo Floyd-Warshall resuelve calcula la distancia m\'inima entre cualquier par de v\'ertices de un grafo
@@ -273,10 +281,16 @@
   \end{itemize}
 \end{frame}
 
-\subsection{Algoritmo de Floyd-Warshall}
+\subsubsection{Algoritmo de Floyd-Warshall}
 \begin{frame}{Algoritmo de Floyd-Warshall}
   \begin{itemize}
-    \item 
+    \item Para todo v\'ertice del grafo
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Algoritmo de Floyd-Warshall}
+  \begin{itemize}
+    \item Complejidad: $O(|V|^3)$
   \end{itemize}
 \end{frame}
 
