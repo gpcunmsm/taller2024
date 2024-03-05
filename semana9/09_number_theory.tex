@@ -1,0 +1,129 @@
+\documentclass[]{beamer}
+%\documentclass[notes]{beamer}       % print frame + notes
+%\documentclass[notes=only]{beamer}   % only notes
+%\documentclass{beamer}              % only frames
+%\documentclass[handout]{beamer}
+\usepackage{tikz}
+
+\usepackage{algorithm2e}
+
+\usetheme{Dresden}%%%%% developer's preference - may change based on preferences
+
+%%%%%% UMass official color: https://www.umass.edu/brand/elements/color
+\definecolor{UMassAmherst}{rgb}{0.533 0.11 0.11}
+\usecolortheme[named=UMassAmherst]{structure}
+
+\title{Teor\'ia de n\'umeros}
+
+\author{MSc Edson Ticona Zegarra}
+\institute{Campamento de Programaci\'on}
+\date{}
+
+%%%%%% obtained from: https://www.umass.edu/brand/elements/wordmarks-seal-and-spirit-marks
+%%%%%% logos of other departments can also be obtained from the above link. Otherwise, consult your department website.
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Contenido}
+\tableofcontents
+\end{frame}
+
+\section{Problemas Adhoc}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+
+\begin{frame}{Problemas Adhoc}
+ \begin{itemize}
+    \item Algunos problemas describen alguna forma de secuencia, f\'ormula o patr\'on, un abordaje directo usuamente termina en TLE
+      \pause
+    \item Algunos problemas implican el manejo de n\'umeros grandes, haciendo necesario uso de \texttt{long long} o \texttt{unsigned long long}
+      \pause
+    \item Evitar el uso de \texttt{float} hasta el final, el error de representaci\'on se amplifica en cada operaci\'on
+  \end{itemize}
+\end{frame}
+
+
+\section{Aritm\'etica b\'asica}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Aritm\'etica b\'asica}
+ \begin{itemize}
+    \item Si $d$ es un divisor de $a$ y de $b$, entonces se dice que $d$ es un divisor com\'un de $a$ y $b$.
+      \pause
+    \item Si $d$ es divisor de $a$ y $b$, entonces $d$ es divisor de $a+b$ y $a-b$
+      \pause
+    \item En general, si $d$ es divisor de $a$ y $b$, entonces $d$ es divisor de $ax+by$ para cualquier par de enteros $x$ y $y$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Aritm\'etica b\'asica}
+  \begin{itemize}
+    \item El \textit{m\'aximo com\'un divisor} de $a$ y $b$ (gcd en ingl\'es), es el divisor com\'un mayor de $a$ y $b$, cumpliendo las siguientes propiedades
+      \pause
+      \begin{enumerate}
+        \item $gcd(a,b) = gcd(b,a)$
+          \pause
+        \item $gcd(a,b) = gcd(-a,b)$
+          \pause
+        \item $gcd(a,b) = gcd(|a|, |b|)$
+          \pause
+        \item $gcd(a, 0) = |a|$
+          \pause
+        \item $gcd(a, ka) = |a|$
+      \end{enumerate}
+      \pause
+    \item Para calcular r\'apidamente el $gcd$ usamos el algoritmo de Euclides: $gcd(a,b) = gcd(b, a \mod b)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{N\'umeros primos}
+  \begin{itemize}
+    \item Se dice que un n\'umero es \textit{primo} si tiene como divisores al 1 y a s\'i mismo.
+      \pause
+    \item Se dice que un par de n\'umeros son \textit{primos entre s\'i} si tiene como \'unico divisor com\'un al 1, es decir, $gcd(a,b) = 1$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Teorema fundamental de la aritm\'etica}
+  \begin{itemize}
+    \item Todo n\'ummero puede ser descompuesto como el producto de sus factores primos
+      \pause
+    \item Tal representaci\'on se le conoce como \textit{representaci\'on can\'onica}
+      \pause
+    \item $\forall n = p_1^{\alpha_1} \times p_2^{\alpha_2} \times ... p_k^{\alpha_k}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Criba de Erat\'ostenes}
+  \begin{algorithm}[H]
+    \SetAlgoLined
+    \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
+    \Input{Entero $n$}
+    $isPrime \leftarrow$ arreglo de tama\~no $n$\;
+    \For{$p \leftarrow 2$ \KwTo $\sqrt{n}$}{
+      \If{$isPrime[p] = \texttt{false}$}{
+        \For{$i \leftarrow p^2$ \KwTo $n$ \KwBy $p$}{
+          $isPrime[i] \leftarrow \texttt{true}$\;
+        }
+      }
+    }
+  \end{algorithm}
+\end{frame}
+
+%\section{Aritm\'etica modular}
+%\begin{frame}{Contenido}
+%\tableofcontents[currentsection]
+%\end{frame}
+%
+%\begin{frame}{Aritm\'etica modular}
+%  \begin{itemize}
+%    \item Consideramos la operaci\'on de modulo 
+%  \end{itemize}
+%\end{frame}
+\end{document}
