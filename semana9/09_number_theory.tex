@@ -79,6 +79,8 @@
       \end{enumerate}
       \pause
     \item Para calcular r\'apidamente el $gcd$ usamos el algoritmo de Euclides: $gcd(a,b) = gcd(b, a \mod b)$
+      \pause
+    \item El \textit{m\'inimo com\'un m\'ultiplo}, (lcm en ingl\'es) puede ser calculado a partir del gcd: $lcm(a,b) = a*b/gcd(a,b)$
   \end{itemize}
 \end{frame}
 
@@ -92,7 +94,7 @@
 
 \begin{frame}{Teorema fundamental de la aritm\'etica}
   \begin{itemize}
-    \item Todo n\'ummero puede ser descompuesto como el producto de sus factores primos
+    \item Todo n\'umero puede ser descompuesto como el producto de sus factores primos
       \pause
     \item Tal representaci\'on se le conoce como \textit{representaci\'on can\'onica}
       \pause
@@ -105,25 +107,45 @@
     \SetAlgoLined
     \SetKwInOut{Input}{input}\SetKwInOut{Output}{output}
     \Input{Entero $n$}
-    $isPrime \leftarrow$ arreglo de tama\~no $n$\;
+    $sieve \leftarrow$ arreglo de tama\~no $n$\;
     \For{$p \leftarrow 2$ \KwTo $\sqrt{n}$}{
-      \If{$isPrime[p] = \texttt{false}$}{
+      \If{$sieve[p] = \texttt{false}$}{
         \For{$i \leftarrow p^2$ \KwTo $n$ \KwBy $p$}{
-          $isPrime[i] \leftarrow \texttt{true}$\;
+          $sieve[i] \leftarrow \texttt{true}$\;
         }
       }
     }
   \end{algorithm}
 \end{frame}
 
-%\section{Aritm\'etica modular}
-%\begin{frame}{Contenido}
-%\tableofcontents[currentsection]
-%\end{frame}
-%
-%\begin{frame}{Aritm\'etica modular}
-%  \begin{itemize}
-%    \item Consideramos la operaci\'on de modulo 
-%  \end{itemize}
-%\end{frame}
+\section{Aritm\'etica modular}
+\begin{frame}{Contenido}
+\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}{Aritm\'etica modular}
+  \begin{itemize}
+    \item Consideramos la operaci\'on de m\'odulo, tambi\'en conocida como \textit{suma cerrada}, como una suma sobre un conjunto finito
+      \pause
+    \item Una forma \'util de pensar en la operaci\'on de m\'odulo, es como un reloj tal que al sumar 4 horas a 22, se pasa a 2 horas y no a 26.
+      \pause
+    \item Lo anterior lo podemos expresar: $(22+4) \mod 24 = 2$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Aritm\'etica modular}
+  \begin{itemize}
+    \item Propiedades de la operaci\'on m\'odulo
+      \pause
+      \begin{enumerate}
+        \item $(a + b) \mod m = ((a \mod m) + (b \mod m))\mod m$
+          \pause
+        \item $(a - b) \mod m = ((a \mod m) - (b \mod m))\mod m$
+          \pause
+        \item $(a * b) \mod m = ((a \mod m) * (b \mod m))\mod m$
+          \pause
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
+
 \end{document}
