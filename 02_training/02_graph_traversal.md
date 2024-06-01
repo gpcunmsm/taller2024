@@ -1,4 +1,4 @@
-# DP
+# Graph traversal
 - [Graph Connectivity](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=6&page=show_problem&problem=400)
 - [Oil Deposits](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=7&page=show_problem&problem=513)
 - [Continents](https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=22&page=show_problem&problem=2035)
