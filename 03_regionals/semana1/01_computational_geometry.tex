@@ -1,0 +1,124 @@
+\documentclass[]{beamer}
+%\documentclass[notes]{beamer}       % print frame + notes
+%\documentclass[notes=only]{beamer}   % only notes
+%\documentclass{beamer}              % only frames
+%\documentclass[handout]{beamer}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{listings}
+
+\usepackage{algorithm2e}
+
+\usetheme{Dresden}%%%%% developer's preference - may change based on preferences
+
+%%%%%% UMass official color: https://www.umass.edu/brand/elements/color
+\definecolor{UMassAmherst}{rgb}{0.533 0.11 0.11}
+\usecolortheme[named=UMassAmherst]{structure}
+
+\title{Algoritmos}
+\subtitle{Geometr\'ia Computacional}
+\author{MSc Edson Ticona Zegarra}
+\institute{Preparaci\'on ICPC Regionales}
+\date{}
+%\date{2023-I}
+
+%%%%%% obtained from: https://www.umass.edu/brand/elements/wordmarks-seal-and-spirit-marks
+%%%%%% logos of other departments can also be obtained from the above link. Otherwise, consult your department website.
+
+%\titlegraphic{\includegraphics[width=0.5in]{logo_unmsm.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Contenido}
+\tableofcontents
+\end{frame}
+
+\begin{frame}{Puntos}
+  \lstinputlisting[caption=Puntos en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{points\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Puntos}
+  \lstinputlisting[caption=Puntos double, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{points\_double\_sample.cpp}
+\end{frame}
+
+\begin{frame}{Rotaci\'on}
+  \begin{center}
+    \begin{tikzpicture}[scale=2]
+        % Draw axes
+        \draw[->] (-1.5, 0) -- (1.5, 0) node[right] {$x$}; % X axis
+        \draw[->] (0, -1.5) -- (0, 1.5) node[above] {$y$}; % Y axis
+
+        % Original point
+        \filldraw[red] (1, 0.5) circle (1pt) node[above right] {$P(x, y)$};
+
+        % Rotated point
+        \filldraw[blue] (0, 1.118) circle (1pt) node[above right] {$P'(x', y')$};
+
+        % Draw angle arc
+        \draw[thick, ->] (1, 0.5) arc[start angle=27, end angle=90, radius=1cm];
+        \node at (0.7, 0.6) {$\theta$};
+
+        % Dashed lines for reference
+        \draw[dashed] (1, 0.5) -- (1, 0);
+        \draw[dashed] (1, 0.5) -- (0, 0.5);
+        \draw[dashed] (0, 1.118) -- (0, 0.5);
+        \draw[dashed] (0, 1.118) -- (1, 0.5);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Matriz de rotaci\'on}
+\[
+\begin{bmatrix}
+x' \\
+y'
+\end{bmatrix}
+=
+\begin{bmatrix}
+\cos(\theta) & -\sin(\theta) \\
+\sin(\theta) & \cos(\theta)
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix}
+\]
+\end{frame}
+
+\begin{frame}{Rotaci\'on}
+  \lstinputlisting[caption=Rotaci\'on de puntos, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{point\_rotation.cpp}
+\end{frame}
+
+\begin{frame}{Linea: $ax + by + c = 0$}
+  \begin{center}
+  \begin{tikzpicture}[scale=1.5]
+      % Draw axes
+      \draw[->] (-3, 0) -- (3, 0) node[right] {$x$}; % X axis
+      \draw[->] (0, -2) -- (0, 3) node[above] {$y$}; % Y axis
+
+      % Define the line ax + by + c = 0
+      % Example line: 2x + y - 1 = 0 (a = 2, b = 1, c = -1)
+      %\draw[thick, blue] (0.5, 0) -- (0, 1) node[below right] {$ax + by + c = 0$};
+      \draw[thick, blue] (-1, 2.5) -- (2, -2) node[below right] {$ax + by + c = 0$};
+
+      % Point at (-c/a, 0)
+      \filldraw[red] (0.66, 0) circle (1pt) node[below right] {$(-\frac{c}{a}, 0)$};
+
+      % Point at (0, -c/b)
+      \filldraw[red] (0, 1) circle (1pt) node[above right] {$(0, -\frac{c}{b})$};
+
+      % Dashed lines from the origin to the line showing intercepts
+      \draw[dashed, gray] (0, 0) -- (0.5, 0);
+      \draw[dashed, gray] (0, 0) -- (0, 1);
+
+  \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Lineas}
+  \lstinputlisting[caption=Lineas en C++, label={lst:listing-cpp}, language=C++, basicstyle=\fontsize{8}{9}\selectfont]{lines\_sample.cpp}
+\end{frame}
+
+\end{document}
